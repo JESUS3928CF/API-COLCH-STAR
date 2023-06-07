@@ -22,6 +22,10 @@ app.get('/',(req,res)=>{
     res.status(200).send('API DE COLCH STAR')
 })
 
+app.use('/*',(req,res)=>{
+    res.status(404).send("Paso algo inesperado")
+})
+
 app.listen(port, ()=>{
     console.log(`El servidor esta escuchando en http://localhost:${port}`);
 })
