@@ -10,6 +10,8 @@ const port = process.env.PORT || 4000;
 
 const app = express();
 
+/// Definiendo la carpeta public
+app.use(express.static("public"));
 
 //Middlewares
 app.use(bodyparser.json()); // Para poder trabajar con json
@@ -21,7 +23,7 @@ routerApi(app);
 // const port = 3000;
 
 app.get('/', (req, res)=>{
-    res.sendFile('View/index.html',{
+    res.sendFile('views/index.html',{
         root:__dirname
     })
 })
