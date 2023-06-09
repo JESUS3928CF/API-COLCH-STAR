@@ -3,15 +3,16 @@ require("dotenv").config();
 const uri = process.env.URI;
 const port = process.env.PORT || 4000;
 
+
 //Find -- Read
-class usuariosService{
+class configuracionService{
     constructor(){}
     async find(){
         const client = new MongoClient(uri);
         try{
             await client.connect();
-            const usuarios =  await client.db('mi_base').collection('usuarios').find({}).limit(10).toArray();
-            return usuarios;
+            const configuracion =  await client.db('mi_base').collection('configuracion').find({}).limit(10).toArray();
+            return configuracion;
         }catch (e) {
             console.log(e);
         }finally{
@@ -21,27 +22,27 @@ class usuariosService{
 
 
 // FindOne
-async findOne(id){
-    const client = new MongoClient(uri);
-        try {
-            await client.connect();
-            const usuario =  await client.db('mi_base').collection('usuarios').findOne({_id: new ObjectId(id)});
-            return usuario;
-        } catch (e) {
-            console.log(e);
-        }finally{
-            await client.close();
-        }
-}
-
+    async findOne(id){
+        const client = new MongoClient(uri);
+            try {
+                await client.connect();
+                const config =  await client.db('mi_base').collection('configuracion').findOne({_id: new ObjectId(id)});
+                return config;
+            } catch (e) {
+                console.log(e);
+            }finally{
+                await client.close();
+            }
+    }
+    
 
 // //InsertOne
 // async insertOne(body){
 //     const client = new MongoClient(uri);
 //     try{
 //         await client.connect();
-//         const users =  await client.db('mi_base').collection('usuarios').insertOne(body);
-//         return users;
+//         const conf =  await client.db('mi_base').collection('configuracion').insertOne(body);
+//         return conf;
 //     }catch (e) {
 //         console.log(e);
 //     }finally{
@@ -55,8 +56,8 @@ async insertMany(body){
     const client = new MongoClient(uri);
     try{
         await client.connect();
-        const users =  await client.db('mi_base').collection('usuarios').insertMany(body);
-        return users;
+        const conf =  await client.db('mi_base').collection('configuracion').insertMany(body);
+        return conf;
     }catch (e) {
         console.log(e);
     }finally{
@@ -66,17 +67,17 @@ async insertMany(body){
 
 
 // UpdateOne
-async updateOne(id,nombre,apellido){
+async updateOne(id,id_configuracion,fk_rol){
     const client = new MongoClient(uri);
         try {
             await client.connect();
-            const users =  await client.db('mi_base').collection('usuarios').updateOne({_id: new ObjectId(id)},
+            const conf =  await client.db('mi_base').collection('configuracion').updateOne({_id: new ObjectId(id)},
             {
                 $set:{
-                    nombre : nombre,
-                    apellido : apellido,
+                    id_configuracion : id_configuracion,
+                    fk_rol : fk_rol,
                 }});
-                return users;
+                return conf;
         } catch (e) {
             console.log(e);
         }finally{
@@ -86,21 +87,19 @@ async updateOne(id,nombre,apellido){
     }
 
 
-
-//UpdateMany
+//Updatemany
 async updateMany(body){
     const client = new MongoClient(uri);
     try{
         await client.connect();
-        const users = await client.db('mi_base').collection('usuarios').updateMany({},{$set:{estado:body}});
-        return users;
+        const conf = await client.db('mi_base').collection('configuracion').updateMany({},{$set:{body}});
+        return conf;
     }catch (e) {
         console.log(e);
     }finally{
         await client.close();
     }
 }
-
 
 
 // DeleteOne
@@ -108,8 +107,8 @@ async deleteOne(id){
     const client = new MongoClient(uri);
         try {
             await client.connect();
-            const users =  await client.db('mi_base').collection('usuarios').deleteOne({_id: new ObjectId(id)});
-            return users;
+            const conf =  await client.db('mi_base').collection('configuracion').deleteOne({_id: new ObjectId(id)});
+            return conf;
         } catch (e) {
             console.log(e);
         }finally{
@@ -118,20 +117,20 @@ async deleteOne(id){
     }
 
 
-
 // DeleteMany
 async deleteMany(body){
     const client = new MongoClient(uri);
     try{
         await client.connect();
-        const users =  await client.db('mi_base').collection('usuarios').deleteMany(body);
-        return users;
+        const conf =  await client.db('mi_base').collection('roles').deleteMany(body);
+        return conf;
     }catch (e) {
         console.log(e);
     }finally{
         await client.close();
     }
+
 }
 
 }
-module.exports = usuariosService;
+module.exports = configuracionService;

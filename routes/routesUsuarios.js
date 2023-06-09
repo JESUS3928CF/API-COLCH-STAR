@@ -10,11 +10,11 @@ const port = process.env.PORT || 4000;
 
 const router = express.Router();
 
-const servive = new usuariosService();
+const service = new usuariosService();
 
 // Find -- Read
 router.get('/', async(req,res)=>{
-            const usuarios = await servive.find();
+            const usuarios = await service.find();
             if(usuarios.length>0){
                 res.status(200).send(usuarios);
             }else{
@@ -26,174 +26,107 @@ router.get('/', async(req,res)=>{
 // FindOne
 router.get('/:id', async(req,res)=>{
     const id = req.params.id;
-    const client = new MongoClient(uri);
-        try {
-            await client.connect();
-            const usuario =  await client.db('mi_base').collection('usuarios').findOne({_id: new ObjectId(id)});
+            const usuario =  await service.findOne(id);
             if(usuario){
                 res.status(200).send(usuario);
             }else{
                 res.status(404).send("No se encontro el usuario en la base de datos");
             }
-        } catch (e) {
-            console.log(e);
-        }finally{
-            await client.close();
-        }
 })
 
 
-// InsertOne
-router.post('/', async(req,res)=>{
-    const body = req.body;
-    const client = new MongoClient(uri);
-        try {
-            await client.connect();
-            const users =  await client.db('mi_base').collection('usuarios').insertOne(body);
-            if(users){
-                res.status(200).json({
-                    message: 'Se creo el usuario en la base de datos',
-                    users,
-                });
-            }else{
-                res.send("No se creo el usuario en la base de datos");
-            }
-        } catch (e) {
-            console.log(e);
-        }finally{
-            await client.close();
-        }
-})
 
+// // InsertOne
+// router.post('/', async(req,res)=>{
+//     const body = req.body;
+//             const users =  await service.insertOne(body);
+//             if(users){
+//                 res.status(200).json({
+//                     message: 'Se creo el usuario en la base de datos',
+//                     users,
+//                 });
+//             }else{
+//                 res.status(404).send("No se creo el usuario en la base de datos");
+//             }
+// })
 
 
 // InsertMany
 router.post('/', async(req,res)=>{
     const body = req.body;
-    const client = new MongoClient(uri);
-        try {
-            await client.connect();
-            const users =  await client.db('mi_base').collection('usuarios').insertMany(body);
+            const users =  await service.insertMany(body);
             if(users){
                 res.status(200).json({
                     message: 'Se crearon los usuarios en la base de datos',
                     users,
                 });
             }else{
-                res.status(400).send("No se crearon los usuarios en la base de datos");
+                res.status(404).send("No se crearon los usuarios en la base de datos");
             }
-        } catch (e) {
-            console.log(e);
-        }finally{
-            await client.close();
+})
+
+
+
+// UpdateOne
+router.patch('/:id', async(req,res)=>{
+    const id = req.params.id;
+    const usuario_nombre = req.body.nombre;
+    const usuario_apellido = req.body.apellido;
+    const users =  await service.updateOne(id,usuario_nombre,usuario_apellido);
+        if(users){
+            res.status(200).json({
+                message: 'Se actualizo el usuario en la base de datos',
+                users,
+            });
+        }else{
+            res.status(404).send("No se actualizo el usuario en la base de datos");
         }
 })
 
 
-// // Update
-// // UpdateOne Actualizamos solo un campo
-// router.patch('/:id', async(req,res)=>{
-//     const id = req.params.id;
-//     const usuario_nombre = req.body.nombre;
-//     const usuario_apellido = req.body.apellido;
-//     const users =  await servive.dupdateOne(id,usuario_nombre,usuario_apellido);
-//         if(users.length>0){
-//             res.status(200).json({
-//                 message: 'Se actualizo el usuario en la base de datos',
-//                 users,
-//             });
-//         }else{
-//             res.status(400).send("No se actualizo el usuario en la base de datos");
-//         }
-// })
 
-
-// Update Many
-// UpdateMany Actualizamos varios campos
-router.put('/', async (req, res)=>{
+// UpdateMany
+router.put('/', async(req,res)=>{
     const body = req.body;
-    const client = new MongoClient(uri);
-        try {
-            await client.connect();
-            const users = await client.db('mi_base').collection('usuarios').updateMany({},{$set:{activo:body}});
+            const users =  await service.updateMany(body);
             if(users){
                 res.status(200).json({
                     message: 'Se actualizaron los campos en la base de datos',
                     users,
                 });
             }else{
-                res.status(400).send("No se actualizaron los campos en la base de datos");
-        }
-        } catch(e) {
-            console.log(e);
-        }finally{
-            await client.close();
-        }
+                res.status(404).send("No se actualizaron los campos en la base de datos");
+            }
 })
 
 
-// Delete
-// DeleteOne eliminamos solo un campo
+// DeleteOne
 router.delete('/:id', async(req,res)=>{
     const id = req.params.id;
-    const body = req.body;
-    const client = new MongoClient(uri);
-        try {
-            await client.connect();
-            const users = await client.db('mi_base').collection('usuarios').deleteOne({_id: new ObjectId(id)},{
-                $set:{
-                    title:body,
-                     year:body.year}});
+            const users = await service.deleteOne(id);
             if(users){
                 res.status(200).json({
                     message: 'Se borro el usuario de la base de datos',
                     users,
                 });
             }else{
-                res.status(400).send("No se borro el usuario de la base de datos");
+                res.status(404).send("No se borro el usuario de la base de datos");
             }
-        } catch (e) {
-            console.log(e);
-        }finally{
-            await client.close();
-        }
 })
 
 
-// Delete Many
-// DeleteMany eliminamos varios campos
-router.delete('/', async (req,res)=>{
-    const body=req.body;
-    const client = new MongoClient(uri);
-        try {
-            await client.connect();
-            const users = await client.db('mi_base').collection('usuarios').deleteMany(body);
-
+// DeleteMany
+ router.delete('/', async(req,res)=>{
+    const body = req.body;
+            const users =  await service.deleteMany(body);
             if(users){
                 res.status(200).json({
-                    message: "Se borraron los datos de la base de datos",
-                    result,
+                    message: 'Se borraron los datos de la base de datos',
+                    users,
                 });
             }else{
-                res.status(400).send("No se borraron los datos de la base de datos");
+                res.status(404).send("No se borraron los datos de la base de datos");
             }
-        } catch(e) {
-            console.log(e);
-        }finally{
-            await client.close();
-        }
- })
-
+})
 
 module.exports = router;
-
-
-async function nombreFuntion(){
-    try{
-
-    }catch{
-
-    }finally{
-
-    }
-}

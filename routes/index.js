@@ -11,4 +11,4 @@ function routerApi(app){
     app.use("/configuracion", routerConfiguracion);
 }
 
-module.exports = routerApi;
+module.exports = routerApi; 

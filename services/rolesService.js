@@ -4,14 +4,14 @@ const uri = process.env.URI;
 const port = process.env.PORT || 4000;
 
 //Find -- Read
-class usuariosService{
+class rolesService{
     constructor(){}
     async find(){
         const client = new MongoClient(uri);
         try{
             await client.connect();
-            const usuarios =  await client.db('mi_base').collection('usuarios').find({}).limit(10).toArray();
-            return usuarios;
+            const roles =  await client.db('mi_base').collection('roles').find({}).limit(10).toArray();
+            return roles;
         }catch (e) {
             console.log(e);
         }finally{
@@ -19,14 +19,13 @@ class usuariosService{
         }
     }
 
-
 // FindOne
 async findOne(id){
     const client = new MongoClient(uri);
         try {
             await client.connect();
-            const usuario =  await client.db('mi_base').collection('usuarios').findOne({_id: new ObjectId(id)});
-            return usuario;
+            const rol =  await client.db('mi_base').collection('roles').findOne({_id: new ObjectId(id)});
+            return rol;
         } catch (e) {
             console.log(e);
         }finally{
@@ -40,8 +39,8 @@ async findOne(id){
 //     const client = new MongoClient(uri);
 //     try{
 //         await client.connect();
-//         const users =  await client.db('mi_base').collection('usuarios').insertOne(body);
-//         return users;
+//         const role =  await client.db('mi_base').collection('roles').insertOne(body);
+//         return role;
 //     }catch (e) {
 //         console.log(e);
 //     }finally{
@@ -55,8 +54,8 @@ async insertMany(body){
     const client = new MongoClient(uri);
     try{
         await client.connect();
-        const users =  await client.db('mi_base').collection('usuarios').insertMany(body);
-        return users;
+        const role =  await client.db('mi_base').collection('roles').insertMany(body);
+        return role;
     }catch (e) {
         console.log(e);
     }finally{
@@ -66,17 +65,17 @@ async insertMany(body){
 
 
 // UpdateOne
-async updateOne(id,nombre,apellido){
+async updateOne(id,id_rol,rol){
     const client = new MongoClient(uri);
         try {
             await client.connect();
-            const users =  await client.db('mi_base').collection('usuarios').updateOne({_id: new ObjectId(id)},
+            const role =  await client.db('mi_base').collection('roles').updateOne({_id: new ObjectId(id)},
             {
                 $set:{
-                    nombre : nombre,
-                    apellido : apellido,
+                    id_rol : id_rol,
+                    rol : rol,
                 }});
-                return users;
+                return role;
         } catch (e) {
             console.log(e);
         }finally{
@@ -92,15 +91,14 @@ async updateMany(body){
     const client = new MongoClient(uri);
     try{
         await client.connect();
-        const users = await client.db('mi_base').collection('usuarios').updateMany({},{$set:{estado:body}});
-        return users;
+        const role = await client.db('mi_base').collection('roles').updateMany({},{$set:{estado:body}});
+        return role;
     }catch (e) {
         console.log(e);
     }finally{
         await client.close();
     }
 }
-
 
 
 // DeleteOne
@@ -108,8 +106,8 @@ async deleteOne(id){
     const client = new MongoClient(uri);
         try {
             await client.connect();
-            const users =  await client.db('mi_base').collection('usuarios').deleteOne({_id: new ObjectId(id)});
-            return users;
+            const role =  await client.db('mi_base').collection('roles').deleteOne({_id: new ObjectId(id)});
+            return role;
         } catch (e) {
             console.log(e);
         }finally{
@@ -117,21 +115,21 @@ async deleteOne(id){
         }
     }
 
-
-
 // DeleteMany
-async deleteMany(body){
-    const client = new MongoClient(uri);
-    try{
-        await client.connect();
-        const users =  await client.db('mi_base').collection('usuarios').deleteMany(body);
-        return users;
-    }catch (e) {
-        console.log(e);
-    }finally{
-        await client.close();
+    async deleteMany(body){
+        const client = new MongoClient(uri);
+        try{
+            await client.connect();
+            const role =  await client.db('mi_base').collection('roles').deleteMany(body);
+            return role;
+        }catch (e) {
+            console.log(e);
+        }finally{
+            await client.close();
+        }
+    
     }
-}
 
 }
-module.exports = usuariosService;
+
+module.exports = rolesService;

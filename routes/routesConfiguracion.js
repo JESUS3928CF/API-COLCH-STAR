@@ -1,5 +1,6 @@
 const express = require('express');
 const {MongoClient,ObjectId} = require('mongodb')// Para poder buscar por id
+const configuracionService = require('../services/configuracionService')
 
 require("dotenv").config();
 const uri = process.env.URI;
@@ -9,197 +10,124 @@ const port = process.env.PORT || 4000;
 
 const router = express.Router();
 
-// Read
-// Find
+const service = new configuracionService();
+
+// Find -- Read
 router.get('/', async(req,res)=>{
-    const client = new MongoClient(uri);
-        try {
-            await client.connect();
-            const configuracion =  await client.db('mi_base').collection('configuracion').find({}).limit(10).toArray();
-            if(configuracion){
-                res.status(200).send(configuracion);
-            }else{
-                res.status(404).send("No se encontro la informacion solicitada")
-            }
-        } catch (e) {
-            console.log(e);
-        }finally{
-            await client.close();
-        }
+    const configuracion = await service.find();
+    if(configuracion.length>0){
+        res.status(200).send(configuracion);
+    }else{
+        res.status(404).send("No se encontro la informacion solicitada")
+    }
 })
 
 
 // FindOne
 router.get('/:id', async(req,res)=>{
     const id = req.params.id;
-    const client = new MongoClient(uri);
-        try {
-            await client.connect();
-            const config =  await client.db('mi_base').collection('configuracion').findOne({_id: new ObjectId(id)});
+            const config =  await service.findOne(id);
             if(config){
                 res.status(200).send(config);
             }else{
                 res.status(404).send("No se encontro la configuracion en la base de datos");
             }
-        } catch (e) {
-            console.log(e);
-        }finally{
-            await client.close();
-        }
 })
 
 
-// InsertOne
-router.post('/', async(req,res)=>{
-    const body = req.body;
-    const client = new MongoClient(uri);
-        try {
-            await client.connect();
-            const conf =  await client.db('mi_base').collection('configuracion').insertOne(body);
-            if(conf){
-                res.status(200).json({
-                    message: 'Se creo la configuracion en la base de datos',
-                    conf,
-                });
-            }else{
-                res.send("No se creo la configuracion en la base de datos");
-            }
-        } catch (e) {
-            console.log(e);
-        }finally{
-            await client.close();
-        }
-})
+// // InsertOne
+// router.post('/', async(req,res)=>{
+//     const body = req.body;
+//             const conf =  await service.insertOne(body);
+//             if(conf){
+//                 res.status(200).json({
+//                     message: 'Se creo la configuracion en la base de datos',
+//                     conf,
+//                 });
+//             }else{
+//                 res.status(404).send("No se creo la configuracion en la base de datos");
+//             }
+// })
 
 
 // InsertMany
 router.post('/', async(req,res)=>{
     const body = req.body;
-    const client = new MongoClient(uri);
-        try {
-            await client.connect();
-            const conf =  await client.db('mi_base').collection('configuracion').insertMany(body);
+            const conf =  await service.insertMany(body);
             if(conf){
                 res.status(200).json({
                     message: 'Se crearon las configuraciones en la base de datos',
                     conf,
                 });
             }else{
-                res.status(400).send("No se crearon las configuraciones en la base de datos");
+                res.status(404).send("No se crearon las configuraciones en la base de datos");
             }
-        } catch (e) {
-            console.log(e);
-        }finally{
-            await client.close();
-        }
 })
 
 
-// Update
-// UpdateOne Actualizamos solo un campo
+// UpdateOne
 router.patch('/:id', async(req,res)=>{
     const id = req.params.id;
-    const body = req.body;
-    const client = new MongoClient(uri);
-        try {
-            await client.connect();
-            const conf =  await client.db('mi_base').collection('configuracion').updateOne({_id: new ObjectId(id)},{
-                $set:{
-                    title:body,
-                     year:body.year}});
-            if(conf){
-                res.status(201).json({
-                    message: 'Se actualizo la configuracion en la base de datos',
-                    conf,
-                    // data: body
-                });
-            }else{
-                res.status(400).send("No se actualizo la configuracion en la base de datos");
-            }
-        } catch (e) {
-            console.log(e);
-        }finally{
-            await client.close();
+    const id_configuracion = req.body.id_configuracion;
+    const fk_rol = req.body.fk_rol;
+    const conf =  await service.updateOne(id,id_configuracion,fk_rol);
+        if(conf){
+            res.status(200).json({
+                message: 'Se actualizo el rol en la base de datos',
+                conf,
+            });
+        }else{
+            res.status(400).send("No se actualizo el rol en la base de datos");
         }
 })
 
 
-// Update Many
-// UpdateMany Actualizamos varios campos
-router.put('/', async (req, res)=>{
+
+// UpdateMany
+router.put('/', async(req,res)=>{
     const body = req.body;
-    const client = new MongoClient(uri);
-        try {
-            await client.connect();
-            const users = await client.db('mi_base').collection('configuracion').updateMany({},{$set:{body}});
-            if(users){
+            const conf =  await service.updateMany(body);
+            if(conf){
                 res.status(200).json({
                     message: 'Se actualizaron los campos en la base de datos',
-                    users,
+                    conf,
                 });
             }else{
-                res.status(400).send("No se actualizaron los campos en la base de datos");
-        }
-        } catch(e) {
-            console.log(e);
-        }finally{
-            await client.close();
-        }
+                res.status(404).send("No se actualizaron los campos en la base de datos");
+            }
 })
 
 
 
-// Delete
-// // DeleteOne eliminamos solo un campo
+// DeleteOne
 router.delete('/:id', async(req,res)=>{
     const id = req.params.id;
-    const body = req.body;
-    const client = new MongoClient(uri);
-        try {
-            await client.connect();
-            const conf =  await client.db('mi_base').collection('configuracion').deleteOne({_id: new ObjectId(id)},{
-                $set:{
-                    title:body,
-                     year:body.year}});
+            const conf = await service.deleteOne(id);
             if(conf){
-                res.status(201).json({
+                res.status(200).json({
                     message: 'Se borro la configuracion de la base de datos',
                     conf,
                 });
             }else{
-                res.status(400).send("No se borro la configuracion de la base de datos");
+                res.status(404).send("No se borro la configuracion de la base de datos");
             }
-        } catch (e) {
-            console.log(e);
-        }finally{
-            await client.close();
-        }
 })
 
 
-// Delete Many
-// DeleteMany eliminamos varios campos
-router.delete('/', async (req,res)=>{
-    const body=req.body;
-    const client = new MongoClient(uri);
-        try {
-            await client.connect();
-            const role = await client.db('mi_base').collection('configuracion').deleteMany(body);
 
-            if(role){
+// DeleteMany
+router.delete('/', async(req,res)=>{
+    const body = req.body;
+            const conf =  await service.deleteMany(body);
+            if(conf){
                 res.status(200).json({
-                    message: "Se borraron los datos de la base de datos",
-                    role,
+                    message: 'Se borraron los datos de la base de datos',
+                    conf,
                 });
             }else{
-                res.status(400).send("No se borraron los datos de la base de datos");
+                res.status(404).send("No se borraron los datos de la base de datos");
             }
-        } catch(e) {
-            console.log(e);
-        }finally{
-            await client.close();
-        }
- })
+})
 
 
 module.exports = router;
