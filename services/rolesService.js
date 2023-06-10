@@ -10,7 +10,7 @@ class rolesService{
         const client = new MongoClient(uri);
         try{
             await client.connect();
-            const roles =  await client.db('mi_base').collection('roles').find({}).limit(10).toArray();
+            const roles =  await client.db('colch_star').collection('roles').find({}).limit(10).toArray();
             return roles;
         }catch (e) {
             console.log(e);
@@ -24,7 +24,7 @@ async findOne(id){
     const client = new MongoClient(uri);
         try {
             await client.connect();
-            const rol =  await client.db('mi_base').collection('roles').findOne({_id: new ObjectId(id)});
+            const rol =  await client.db('colch_star').collection('roles').findOne({_id: new ObjectId(id)});
             return rol;
         } catch (e) {
             console.log(e);
@@ -39,7 +39,7 @@ async findOne(id){
 //     const client = new MongoClient(uri);
 //     try{
 //         await client.connect();
-//         const role =  await client.db('mi_base').collection('roles').insertOne(body);
+//         const role =  await client.db('colch_star').collection('roles').insertOne(body);
 //         return role;
 //     }catch (e) {
 //         console.log(e);
@@ -54,7 +54,7 @@ async insertMany(body){
     const client = new MongoClient(uri);
     try{
         await client.connect();
-        const role =  await client.db('mi_base').collection('roles').insertMany(body);
+        const role =  await client.db('colch_star').collection('roles').insertMany(body);
         return role;
     }catch (e) {
         console.log(e);
@@ -69,7 +69,7 @@ async updateOne(id,id_rol,rol){
     const client = new MongoClient(uri);
         try {
             await client.connect();
-            const role =  await client.db('mi_base').collection('roles').updateOne({_id: new ObjectId(id)},
+            const role =  await client.db('colch_star').collection('roles').updateOne({_id: new ObjectId(id)},
             {
                 $set:{
                     id_rol : id_rol,
@@ -91,7 +91,7 @@ async updateMany(body){
     const client = new MongoClient(uri);
     try{
         await client.connect();
-        const role = await client.db('mi_base').collection('roles').updateMany({},{$set:{estado:body}});
+        const role = await client.db('colch_star').collection('roles').updateMany({},{$set:{estado:body}});
         return role;
     }catch (e) {
         console.log(e);
@@ -106,7 +106,7 @@ async deleteOne(id){
     const client = new MongoClient(uri);
         try {
             await client.connect();
-            const role =  await client.db('mi_base').collection('roles').deleteOne({_id: new ObjectId(id)});
+            const role =  await client.db('colch_star').collection('roles').deleteOne({_id: new ObjectId(id)});
             return role;
         } catch (e) {
             console.log(e);
@@ -120,7 +120,7 @@ async deleteOne(id){
         const client = new MongoClient(uri);
         try{
             await client.connect();
-            const role =  await client.db('mi_base').collection('roles').deleteMany(body);
+            const role =  await client.db('colch_star').collection('roles').deleteMany(body);
             return role;
         }catch (e) {
             console.log(e);

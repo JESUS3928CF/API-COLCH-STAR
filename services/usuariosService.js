@@ -10,7 +10,7 @@ class usuariosService{
         const client = new MongoClient(uri);
         try{
             await client.connect();
-            const usuarios =  await client.db('mi_base').collection('usuarios').find({}).limit(10).toArray();
+            const usuarios =  await client.db('colch_star').collection('usuarios').find({}).limit(10).toArray();
             return usuarios;
         }catch (e) {
             console.log(e);
@@ -25,7 +25,7 @@ async findOne(id){
     const client = new MongoClient(uri);
         try {
             await client.connect();
-            const usuario =  await client.db('mi_base').collection('usuarios').findOne({_id: new ObjectId(id)});
+            const usuario =  await client.db('colch_star').collection('usuarios').findOne({_id: new ObjectId(id)});
             return usuario;
         } catch (e) {
             console.log(e);
@@ -40,7 +40,7 @@ async findOne(id){
 //     const client = new MongoClient(uri);
 //     try{
 //         await client.connect();
-//         const users =  await client.db('mi_base').collection('usuarios').insertOne(body);
+//         const users =  await client.db('colch_star').collection('usuarios').insertOne(body);
 //         return users;
 //     }catch (e) {
 //         console.log(e);
@@ -55,7 +55,7 @@ async insertMany(body){
     const client = new MongoClient(uri);
     try{
         await client.connect();
-        const users =  await client.db('mi_base').collection('usuarios').insertMany(body);
+        const users =  await client.db('colch_star').collection('usuarios').insertMany(body);
         return users;
     }catch (e) {
         console.log(e);
@@ -70,7 +70,7 @@ async updateOne(id,nombre,apellido){
     const client = new MongoClient(uri);
         try {
             await client.connect();
-            const users =  await client.db('mi_base').collection('usuarios').updateOne({_id: new ObjectId(id)},
+            const users =  await client.db('colch_star').collection('usuarios').updateOne({_id: new ObjectId(id)},
             {
                 $set:{
                     nombre : nombre,
@@ -92,7 +92,7 @@ async updateMany(body){
     const client = new MongoClient(uri);
     try{
         await client.connect();
-        const users = await client.db('mi_base').collection('usuarios').updateMany({},{$set:{estado:body}});
+        const users = await client.db('colch_star').collection('usuarios').updateMany({},{$set:{estado:body}});
         return users;
     }catch (e) {
         console.log(e);
@@ -108,7 +108,7 @@ async deleteOne(id){
     const client = new MongoClient(uri);
         try {
             await client.connect();
-            const users =  await client.db('mi_base').collection('usuarios').deleteOne({_id: new ObjectId(id)});
+            const users =  await client.db('colch_star').collection('usuarios').deleteOne({_id: new ObjectId(id)});
             return users;
         } catch (e) {
             console.log(e);
@@ -124,7 +124,7 @@ async deleteMany(body){
     const client = new MongoClient(uri);
     try{
         await client.connect();
-        const users =  await client.db('mi_base').collection('usuarios').deleteMany(body);
+        const users =  await client.db('colch_star').collection('usuarios').deleteMany(body);
         return users;
     }catch (e) {
         console.log(e);
