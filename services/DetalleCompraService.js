@@ -1,23 +1,21 @@
-const { MongoClient, ObjectId } = require('mongodb');
-require('dotenv').config();
+const { MongoClient, ObjectId } = require('mongodb')
+require("dotenv").config();
 const uri = process.env.URI;
 const port = process.env.PORT || 4000;
 
-class ClientesService {
-    constructor() {}
+
+
+class DetalleCompraService {
+
+    constructor() { }
 
     //-----------------READ FIND--------------
 
-    async find() {
+    async find(limit, offset) {
         const client = new MongoClient(uri);
         try {
             await client.connect();
-            const resultado = await client
-                .db('colch_star')
-                .collection('cliente')
-                .find({})
-                .limit(10)
-                .toArray();
+            const resultado = await client.db('colch_star').collection('DetalleCompra').find({}).skip(Number(offset)).limit(Number(limit)).toArray();
             return resultado;
         } catch (e) {
             console.log(e);
@@ -25,17 +23,15 @@ class ClientesService {
             await client.close();
         }
     }
-    
+
+
     //------------------------READ findOne----------------
 
     async findOne(id) {
         const client = new MongoClient(uri);
         try {
             await client.connect();
-            const resultado = await client
-                .db('colch_star')
-                .collection('cliente')
-                .findOne({ _id: new ObjectId(id) });
+            const resultado = await client.db('colch_star').collection('DetalleCompra').findOne({ _id: new ObjectId(id) });
             return resultado;
         } catch (e) {
             console.log(e);
@@ -43,6 +39,8 @@ class ClientesService {
             await client.close();
         }
     }
+
+
 
     //----------------------InsertOne------------------------------
 
@@ -50,14 +48,15 @@ class ClientesService {
     //     const client = new MongoClient(uri);
     //         try {
     //             await client.connect();
-    //             const resultado =  await client.db('colch_star').collection('cliente').insertOne(body);
+    //             const resultado =  await client.db('colch_star').collection('DetalleCompra').insertOne(body);
     //             return resultado;
     //         } catch (e) {
     //             console.log(e);
     //         }finally{
     //             await client.close();
     //         }
-    // }
+    // } 
+
 
     //----------------------InsertMany------------------------------
 
@@ -65,10 +64,7 @@ class ClientesService {
         const client = new MongoClient(uri);
         try {
             await client.connect();
-            const resultado = await client
-                .db('colch_star')
-                .collection('cliente')
-                .insertMany(body);
+            const resultado = await client.db('colch_star').collection('DetalleCompra').insertMany(body);
             return resultado;
         } catch (e) {
             console.log(e);
@@ -76,33 +72,35 @@ class ClientesService {
             await client.close();
         }
     }
+
+
 
     //---------------------updateOne------------
 
-    async updateOne(id, id_cliente, nombre, estado) {
+    async updateOne(id, id_detalleCompra, cantidadPrenda, precioPrenda, cantidadDiseño, precioDiseño) {
         const client = new MongoClient(uri);
         try {
             await client.connect();
-            const resultado = await client
-                .db('colch_star')
-                .collection('cliente')
-                .updateOne(
-                    { _id: new ObjectId(id) },
-                    {
-                        $set: {
-                            id_cliente: id_cliente,
-                            nombre: nombre,
-                            estado: estado,
-                        },
+            const resultado = await client.db('colch_star').collection('DetalleCompra').updateOne({ _id: new ObjectId(id) },
+                {
+                    $set: {
+                        id_detalleCompra: id_detalleCompra,
+                        cantidadPrenda: cantidadPrenda,
+                        precioPrenda: precioPrenda,
+                        cantidadDiseño: cantidadDiseño,
+                        precioDiseño: precioDiseño
+
                     }
-                );
+                });
             return resultado;
+
         } catch (e) {
             console.log(e);
         } finally {
             await client.close();
         }
     }
+
 
     //--------------------------------UpdateMany------------------------------
 
@@ -110,12 +108,10 @@ class ClientesService {
         const client = new MongoClient(uri);
         try {
             await client.connect();
-            const resultado = await client
-                .db('colch_star')
-                .collection('clientes')
-                .updateMany({}, { $set: { body } });
+            const resultado = await client.db('colch_star').collection('DetalleCompra').updateMany({}, { $set: { body } });
 
             return resultado;
+
         } catch (e) {
             console.log(e);
         } finally {
@@ -123,16 +119,14 @@ class ClientesService {
         }
     }
 
+
     // ----------------------------------------------DeleteOne------------------------------
 
     async deleteOne(id) {
         const client = new MongoClient(uri);
         try {
             await client.connect();
-            const resultado = await client
-                .db('colch_star')
-                .collection('cliente')
-                .deleteOne({ _id: new ObjectId(id) });
+            const resultado = await client.db('colch_star').collection('DetalleCompra').deleteOne({ _id: new ObjectId(id) });
             return resultado;
         } catch (e) {
             console.log(e);
@@ -147,18 +141,21 @@ class ClientesService {
         const client = new MongoClient(uri);
         try {
             await client.connect();
-            const resultado = await client
-                .db('colch_star')
-                .collection('cliente')
-                .deleteMany(body);
+            const resultado = await client.db('colch_star').collection('DetalleCompra').deleteMany(body);
 
             return resultado;
+
         } catch (e) {
             console.log(e);
         } finally {
             await client.close();
         }
     }
+
+
 }
 
-module.exports = ClientesService;
+
+
+module.exports = DetalleCompraService;
+
