@@ -8,7 +8,8 @@ const routerPrendas=require("./routesPrendas");
 const routerClientes = require("./routesClientes");
 const routerVentas = require("./routesVentas");
 const routerDetalleVenta = require("./routesDetalleVenta");
-const routerDiseno = require("./routesDiseno")
+const routerDiseno = require("./routesDiseno");
+const routerTalla=require("./routesTalla");
 
 
 // const routerRoles = require("./routesMovies")
@@ -26,6 +27,7 @@ function routerApi(app){
     app.use("/Ventas",routerVentas);
     app.use("/detalleVenta",routerDetalleVenta);
     app.use("/diseno",routerDiseno);
+    app.use("/talla",routerTalla);
 }
 
 module.exports = routerApi; 
