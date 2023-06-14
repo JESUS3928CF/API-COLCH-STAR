@@ -15,16 +15,10 @@
     "cors": "^2.8.5",
     "dotenv": "^16.1.4",
     "express": "^4.18.2",
-<<<<<<< HEAD
     "express-handlebars": "^7.0.7",
     "helmet": "^7.0.0",
     "mongodb": "^5.5.0",
-    "morgan": "^1.10.0"
-=======
-    "mongodb": "^5.6.0"
->>>>>>> f4a2d9a5dd7836f0001abcfd8cc3b944b6aed62c
-  },
-  "devDependencies": {
+    "morgan": "^1.10.0",
     "nodemon": "^2.0.22"
   }
 }
