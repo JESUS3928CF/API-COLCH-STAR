@@ -1,3 +1,67 @@
-.titulo {
-    text-align: center;
+body {
+    height: 100vh;
+    background-color: #0a0708;
+    color: white;
+    font-size: 2.5rem;
+    font-family: "Poppins", sans-serif;
+}
+
+.container {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.letter_animation {
+    display: flex;
+}
+
+.letter_animation span {
+    white-space: pre;
+    font-size: 4rem;
+    font-weight: 800;
+    cursor: default;
+}
+
+
+.bouncy {
+    font-size: 2rem;
+    transition: all .2s ease-out;
+}
+
+.bouncing {
+    color: #07dac0;
+    animation: rubberband 800ms alternate ease-out;
+}
+
+@keyframes rubberband {
+    0% {
+        transform: scaleX(1);
+    }
+
+    40% {
+        transform: scaleX(1.12) scaleY(1);
+    }
+
+    55% {
+        transform: scaleX(0.85) scaleY(1);
+    }
+
+    65% {
+        transform: scaleX(1.09) scaleY(0.85);
+    }
+
+    75% {
+        transform: scaleX(0.9) scaleY(1);
+    }
+
+    90% {
+        transform: scaleX(1.05) scaleY(0.95);
+    }
+
+    100% {
+        transform: scaleX(1) scaleY(1);
+    }
 }
