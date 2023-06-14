@@ -5,7 +5,7 @@ require("dotenv").config();
 const uri = process.env.URI;
 const port = process.env.PORT || 4000;
 
-const DetalleCompraService = require('../services/DetalleCompra');
+const DetalleCompraService = require('../services/DetalleCompraService');
 
 const router = express.Router();
 
