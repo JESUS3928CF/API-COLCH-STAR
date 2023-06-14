@@ -6,11 +6,11 @@ const port = process.env.PORT || 4000;
 //Find -- Read
 class rolesService{
     constructor(){}
-    async find(){
+    async find(limit,offset){
         const client = new MongoClient(uri);
         try{
             await client.connect();
-            const roles =  await client.db('colch_star').collection('roles').find({}).limit(10).toArray();
+            const roles =  await client.db('colch_star').collection('roles').find({}).skip(Number(offset)).limit(Number(limit)).toArray();
             return roles;
         }catch (e) {
             console.log(e);

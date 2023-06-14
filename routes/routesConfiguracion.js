@@ -14,7 +14,8 @@ const service = new configuracionService();
 
 // Find -- Read
 router.get('/', async(req,res)=>{
-    const configuracion = await service.find();
+    const {limit,offset}=req.query;
+    const configuracion = await service.find(limit,offset);
     if(configuracion.length>0){
         res.status(200).send(configuracion);
     }else{

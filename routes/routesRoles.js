@@ -14,7 +14,8 @@ const service = new rolesService();
 
 // Find -- Read
 router.get('/', async(req,res)=>{
-    const roles = await service.find();
+    const {limit,offset}=req.query;
+    const roles = await service.find(limit,offset);
     if(roles.length>0){
         res.status(200).send(roles);
     }else{

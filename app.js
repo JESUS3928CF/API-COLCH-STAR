@@ -27,11 +27,12 @@ app.use(express.json()); // Para poder trabajar con json
 app.use(helmet());
 app.use(cors());
 app.use(morgan('tiny'));
+app.use(express.static('public'));
 
 
 app.set('views',path.join(__dirname, 'views'));
 app.engine('handlebars', engine());
-app.set('view engine', 'handlebars');
+// app.set('view engine', 'handlebars');
 
 
 routerApi(app);
