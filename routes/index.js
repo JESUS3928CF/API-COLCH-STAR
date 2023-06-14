@@ -10,6 +10,7 @@ const routerVentas = require("./routesVentas");
 const routerDetalleVenta = require("./routesDetalleVenta");
 const routerDiseno = require("./routesDiseno");
 const routerTalla=require("./routesTalla");
+const routerColor=require("./routersColor")
 
 
 // const routerRoles = require("./routesMovies")
@@ -28,6 +29,7 @@ function routerApi(app){
     app.use("/detalleVenta",routerDetalleVenta);
     app.use("/diseno",routerDiseno);
     app.use("/talla",routerTalla);
+    app.use("/color",routerColor);
 }
 
 module.exports = routerApi; 
