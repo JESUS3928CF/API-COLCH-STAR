@@ -1,14 +1,21 @@
 const express = require('express');
 const bodyparser = require('body-parser');
 const routerApi = require("./routes");
+const helmet = require('helmet');
+const cors = require('cors');
+const morgan = require('morgan');
+const {engine} = require('express-handlebars');
+const path = require('path');
+require("dotenv").config();
+
+const app = express();
 
 const responApi=require('./routes/index')
 
-require("dotenv").config();
+
+
 const uri = process.env.URI;
 const port = process.env.PORT || 4000;
-
-const app = express();
 
 /// Definiendo la carpeta public
 app.use(express.static("public"));
@@ -17,6 +24,15 @@ app.use(express.static("public"));
 app.use(bodyparser.json()); // Para poder trabajar con json
 app.use(bodyparser.urlencoded({extended: true})); // Para poder trabajr con formularios codificados en url
 app.use(express.json()); // Para poder trabajar con json
+app.use(helmet());
+app.use(cors());
+app.use(morgan('tiny'));
+
+
+app.set('views',path.join(__dirname, 'views'));
+app.engine('handlebars', engine());
+app.set('view engine', 'handlebars');
+
 
 routerApi(app);
 
@@ -28,7 +44,7 @@ app.get('/', (req, res)=>{
     })
 })
 
-app.get('/',(req,res)=>{
+app.get('/api/v1',(req,res)=>{
     res.status(200).send('API DE COLCH STAR')
 })
 

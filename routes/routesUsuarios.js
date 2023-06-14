@@ -14,7 +14,8 @@ const service = new usuariosService();
 
 // Find -- Read
 router.get('/', async(req,res)=>{
-            const usuarios = await service.find();
+            const {limit,offset}=req.query;
+            const usuarios = await service.find(limit,offset);
             if(usuarios.length>0){
                 res.status(200).send(usuarios);
             }else{

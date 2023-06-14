@@ -6,11 +6,11 @@ const port = process.env.PORT || 4000;
 //Find -- Read
 class usuariosService{
     constructor(){}
-    async find(){
+    async find(limit,offset){
         const client = new MongoClient(uri);
         try{
             await client.connect();
-            const usuarios =  await client.db('colch_star').collection('usuarios').find({}).limit(10).toArray();
+            const usuarios =  await client.db('colch_star').collection('usuarios').find({}).skip(Number(offset)).limit(Number(limit)).toArray();
             return usuarios;
         }catch (e) {
             console.log(e);
