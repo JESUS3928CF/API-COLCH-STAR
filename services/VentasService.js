@@ -4,7 +4,7 @@ const uri = process.env.URI;
 const port = process.env.PORT || 4000;
 
 class CompraService {
-    constructor() {}
+    constructor() { }
 
     //-----------------READ FIND--------------
 

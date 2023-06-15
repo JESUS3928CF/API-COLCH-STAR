@@ -4,7 +4,7 @@ const uri = process.env.URI;
 const port = process.env.PORT || 4000;
 
 class ClientesService {
-    constructor() {}
+    constructor() { }
 
     //-----------------READ FIND--------------
 
@@ -25,7 +25,7 @@ class ClientesService {
             await client.close();
         }
     }
-    
+
     //------------------------READ findOne----------------
 
     async findOne(id) {
