@@ -10,7 +10,14 @@ class usuariosService {
         const client = new MongoClient(uri);
         try {
             await client.connect();
-            const usuarios = await client.db('colch_star').collection('usuarios').find({}).skip(Number(offset)).limit(Number(limit)).toArray();
+            const usuarios = await client
+                .db('colch_star')
+                .collection('usuarios')
+                .find({})
+                .sort({ 'id_usuario': 1 }) // Orden ascendente por id:usuario
+                .skip(Number(offset))
+                .limit(Number(limit))
+                .toArray();
             return usuarios;
         } catch (e) {
             console.log(e);

@@ -14,12 +14,12 @@ const service = new usuariosService();
 
 // Find -- Read
 router.get('/', async (req, res) => {
-    const { limit, offset } = req.query;
-    const usuarios = await service.find(limit, offset);
+    const { limit, offset} = req.query;
+    const usuarios = await service.find(limit,offset);
     if (usuarios.length > 0) {
         res.status(200).send(usuarios);
     } else {
-        res.status(404).send("No se encontro la informacion solicitada")
+        res.status(404).send("No se encontró la información solicitada")
     }
 })
 
@@ -31,7 +31,7 @@ router.get('/:id', async (req, res) => {
     if (usuario) {
         res.status(200).send(usuario);
     } else {
-        res.status(404).send("No se encontro el usuario en la base de datos");
+        res.status(404).send("No se encontró el usuario en la base de datos");
     }
 })
 
