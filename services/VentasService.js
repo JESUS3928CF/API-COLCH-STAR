@@ -4,21 +4,24 @@ const uri = process.env.URI;
 const port = process.env.PORT || 4000;
 
 class CompraService {
-    constructor() { }
+    constructor() {}
 
     //-----------------READ FIND--------------
 
-    async find() {
+    
+    async find(limit, offset) {
         const client = new MongoClient(uri);
         try {
             await client.connect();
-            const resultado = await client
+            const usuarios = await client
                 .db('colch_star')
                 .collection('venta')
                 .find({})
-                .limit(10)
+                .sort({ id_venta: 1 }) // Orden ascendente por id:usuario
+                .skip(Number(offset))
+                .limit(Number(limit))
                 .toArray();
-            return resultado;
+            return usuarios;
         } catch (e) {
             console.log(e);
         } finally {

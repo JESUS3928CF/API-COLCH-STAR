@@ -6,7 +6,7 @@ const routerCompra = require("./routesCompra")
 const routerDetalleCompra = require("./routesDetalleCompra")
 const routerProveedor = require("./routesProveedor")
 const routerClientes = require("./routesProveedor")
-const routerVentas = require("./routesProveedor")
+const routerVentas = require("./routesVentas")
 const routerDetalleVenta = require("./routesProveedor")
 
 
