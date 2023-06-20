@@ -19,7 +19,7 @@ class ProveedorService {
                 .db('colch_star')
                 .collection('Proveedor')
                 .find({})
-                .sort({ id_cliente: 1 })
+                .sort({ id_proveedor: 1 })
                 .skip(Number(offset))
                 .limit(Number(limit))
                 .toArray();
