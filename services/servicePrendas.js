@@ -13,7 +13,14 @@ class servicePrendas {
         const client = new MongoClient(uri);
         try {
             await client.connect();
-            const resultado = await client.db('colch_star').collection('prendas').find({}).limit(10).toArray();
+            const resultado = await client
+            .db('colch_star')
+            .collection('prendas')
+            .find({})
+            .sort({ id_prenda: 1 })
+            .skip(Number(offset))
+            .limit(Number(limit))
+            .toArray();
             return resultado;
         } catch (e) {
             console.log(e);
@@ -29,7 +36,10 @@ class servicePrendas {
         const client = new MongoClient(uri);
         try {
             await client.connect();
-            const resultado = await client.db('colch_star').collection('prendas').findOne({ _id: new ObjectId(id) });
+            const resultado = await client
+            .db('colch_star')
+            .collection('prendas')
+            .findOne({ _id: new ObjectId(id) });
             return resultado;
         } catch (e) {
             console.log(e);
@@ -62,7 +72,10 @@ class servicePrendas {
         const client = new MongoClient(uri);
         try {
             await client.connect();
-            const resultado = await client.db('colch_star').collection('prendas').insertMany(body);
+            const resultado = await client
+            .db('colch_star')
+            .collection('prendas')
+            .insertMany(body);
             return resultado;
         } catch (e) {
             console.log(e);
@@ -80,7 +93,10 @@ class servicePrendas {
 
         try {
             await client.connect();
-            const resultado = await client.db('colch_star').collection('prendas').updateOne({ _id: new ObjectId(id) }, {
+            const resultado = await client
+            .db('colch_star')
+            .collection('prendas')
+            .updateOne({ _id: new ObjectId(id) }, {
                 $set: {
                     id_prenda: id_prenda,
                     nombre: nombre,
@@ -113,7 +129,10 @@ class servicePrendas {
         const client = new MongoClient(uri);
         try {
             await client.connect();
-            const resultado = await client.db('colch_star').collection('prendas').updateMany({}, { $set: { body } });
+            const resultado = await client
+            .db('colch_star')
+            .collection('prendas')
+            .updateMany({}, { $set: { body } });
 
             return resultado;
 
@@ -131,7 +150,10 @@ class servicePrendas {
         const client = new MongoClient(uri);
         try {
             await client.connect();
-            const resultado = await client.db('colch_star').collection('prendas').deleteOne({ _id: new ObjectId(id) });
+            const resultado = await client
+            .db('colch_star')
+            .collection('prendas')
+            .deleteOne({ _id: new ObjectId(id) });
             return resultado;
         } catch (e) {
             console.log(e);
@@ -146,7 +168,10 @@ class servicePrendas {
         const client = new MongoClient(uri);
         try {
             await client.connect();
-            const resultado = await client.db('colch_star').collection('prendas').deleteMany(body);
+            const resultado = await client
+            .db('colch_star')
+            .collection('prendas')
+            .deleteMany(body);
 
             return resultado;
 
