@@ -14,7 +14,8 @@ const service = new ClientesService();
 //------------------------------- Find---------------------------------
 
 router.get('/', async (req, res) => {
-    const resultado = await service.find();
+    const { limit, offset } = req.query;
+    const resultado = await service.find(limit, offset);
 
     if (resultado.length > 0) {
         res.status(200).send(resultado);

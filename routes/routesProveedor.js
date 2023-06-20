@@ -5,11 +5,11 @@ require("dotenv").config();
 const uri = process.env.URI;
 const port = process.env.PORT || 4000;
 
-const ProveedorService = require('../services/ProveedorService');
+const ClienteService = require('../services/ClientesService');
 
 const router = express.Router();
 
-const service = new ProveedorService();
+const service = new ClienteService();
 
 
 //------------------------------- Find---------------------------------
