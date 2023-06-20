@@ -1,15 +1,15 @@
-const express = require('express');
+ const express = require('express');
 const { MongoClient, ObjectId } = require('mongodb');
 
 require("dotenv").config();
 const uri = process.env.URI;
 const port = process.env.PORT || 4000;
 
-const ClienteService = require('../services/ClientesService');
+const ProveedorService = require('../services/ProveedorService');
 
 const router = express.Router();
 
-const service = new ClienteService();
+const service = new ProveedorService();
 
 
 //------------------------------- Find---------------------------------

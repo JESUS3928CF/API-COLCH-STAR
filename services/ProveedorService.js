@@ -15,7 +15,14 @@ class ProveedorService {
         const client = new MongoClient(uri);
         try {
             await client.connect();
-            const resultado = await client.db('colch_star').collection('Proveedor').find({}).skip(Number(offset)).limit(Number(limit)).toArray();
+            const resultado = await client
+                .db('colch_star')
+                .collection('Proveedor')
+                .find({})
+                .sort({ id_cliente: 1 })
+                .skip(Number(offset))
+                .limit(Number(limit))
+                .toArray();
             return resultado;
         } catch (e) {
             console.log(e);
@@ -31,7 +38,10 @@ class ProveedorService {
         const client = new MongoClient(uri);
         try {
             await client.connect();
-            const resultado = await client.db('colch_star').collection('Proveedor').findOne({ _id: new ObjectId(id) });
+            const resultado = await client
+                .db('colch_star')
+                .collection('Proveedor')
+                .findOne({ _id: new ObjectId(id) });
             return resultado;
         } catch (e) {
             console.log(e);
@@ -64,7 +74,10 @@ class ProveedorService {
         const client = new MongoClient(uri);
         try {
             await client.connect();
-            const resultado = await client.db('colch_star').collection('Proveedor').insertMany(body);
+            const resultado = await client
+                .db('colch_star')
+                .collection('Proveedor')
+                .insertMany(body);
             return resultado;
         } catch (e) {
             console.log(e);
@@ -81,16 +94,19 @@ class ProveedorService {
         const client = new MongoClient(uri);
         try {
             await client.connect();
-            const resultado = await client.db('colch_star').collection('Proveedor').updateOne({ _id: new ObjectId(id) },
-                {
-                    $set: {
-                        id_proveedor: id_proveedor,
-                        nombre: nombre,
-                        contacto: contacto,
-                        estado: estado
+            const resultado = await client
+                .db('colch_star')
+                .collection('Proveedor')
+                .updateOne({ _id: new ObjectId(id) },
+                    {
+                        $set: {
+                            id_proveedor: id_proveedor,
+                            nombre: nombre,
+                            contacto: contacto,
+                            estado: estado
 
-                    }
-                });
+                        }
+                    });
             return resultado;
 
         } catch (e) {
@@ -107,7 +123,10 @@ class ProveedorService {
         const client = new MongoClient(uri);
         try {
             await client.connect();
-            const resultado = await client.db('colch_star').collection('Proveedor').updateMany({}, { $set: { body } });
+            const resultado = await client
+                .db('colch_star')
+                .collection('Proveedor')
+                .updateMany({}, { $set: { body } });
 
             return resultado;
 
@@ -125,7 +144,10 @@ class ProveedorService {
         const client = new MongoClient(uri);
         try {
             await client.connect();
-            const resultado = await client.db('colch_star').collection('Proveedor').deleteOne({ _id: new ObjectId(id) });
+            const resultado = await client
+                .db('colch_star')
+                .collection('Proveedor')
+                .deleteOne({ _id: new ObjectId(id) });
             return resultado;
         } catch (e) {
             console.log(e);
@@ -140,7 +162,10 @@ class ProveedorService {
         const client = new MongoClient(uri);
         try {
             await client.connect();
-            const resultado = await client.db('colch_star').collection('Proveedor').deleteMany(body);
+            const resultado = await client
+                .db('colch_star')
+                .collection('Proveedor')
+                .deleteMany(body);
 
             return resultado;
 
