@@ -114,7 +114,7 @@ class ClientesService {
             await client.connect();
             const resultado = await client
                 .db('colch_star')
-                .collection('clientes')
+                .collection('cliente')
                 .updateMany({}, { $set: { body } });
 
             return resultado;

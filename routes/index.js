@@ -5,9 +5,9 @@ const routerConfiguracion = require("./routesConfiguracion")
 const routerCompra = require("./routesCompra")
 const routerDetalleCompra = require("./routesDetalleCompra")
 const routerProveedor = require("./routesProveedor")
-const routerClientes = require("./routesProveedor")
+const routerClientes = require("./routesClientes")
 const routerVentas = require("./routesVentas")
-const routerDetalleVenta = require("./routesProveedor")
+const routerDetalleVenta = require("./routesDetalleVenta")
 
 
 function routerApi(app) {
