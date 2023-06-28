@@ -37,34 +37,34 @@ router.get('/:id', async (req, res) => {
 
 
 
-// // InsertOne
-// router.post('/', async(req,res)=>{
-//     const body = req.body;
-//             const users =  await service.insertOne(body);
-//             if(users){
-//                 res.status(200).json({
-//                     message: 'Se creo el usuario en la base de datos',
-//                     users,
-//                 });
-//             }else{
-//                 res.status(404).send("No se creo el usuario en la base de datos");
-//             }
-// })
-
-
-// InsertMany
-router.post('/', async (req, res) => {
+// InsertOne
+router.post('/', async(req,res)=>{
     const body = req.body;
-    const users = await service.insertMany(body);
-    if (users) {
-        res.status(200).json({
-            message: 'Se crearon los usuarios en la base de datos',
-            users,
-        });
-    } else {
-        res.status(404).send("No se crearon los usuarios en la base de datos");
-    }
+            const users =  await service.insertOne(body);
+            if(users){
+                res.status(200).json({
+                    message: 'Se creo el usuario en la base de datos',
+                    users,
+                });
+            }else{
+                res.status(404).send("No se creo el usuario en la base de datos");
+            }
 })
+
+
+// // InsertMany
+// router.post('/', async (req, res) => {
+//     const body = req.body;
+//     const users = await service.insertMany(body);
+//     if (users) {
+//         res.status(200).json({
+//             message: 'Se creo el usuario en la base de datos',
+//             users,
+//         });
+//     } else {
+//         res.status(404).send("No se crearon los usuarios en la base de datos");
+//     }
+// })
 
 
 
@@ -86,19 +86,19 @@ router.patch('/:id', async (req, res) => {
 
 
 
-// UpdateMany
-router.put('/', async (req, res) => {
-    const body = req.body;
-    const users = await service.updateMany(body);
-    if (users) {
-        res.status(200).json({
-            message: 'Se actualizaron los campos en la base de datos',
-            users,
-        });
-    } else {
-        res.status(404).send("No se actualizaron los campos en la base de datos");
-    }
-})
+// // UpdateMany
+// router.put('/', async (req, res) => {
+//     const body = req.body;
+//     const users = await service.updateMany(body);
+//     if (users) {
+//         res.status(200).json({
+//             message: 'Se actualizaron los campos en la base de datos',
+//             users,
+//         });
+//     } else {
+//         res.status(404).send("No se actualizaron los campos en la base de datos");
+//     }
+// })
 
 
 // DeleteOne

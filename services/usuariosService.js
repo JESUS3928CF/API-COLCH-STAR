@@ -42,34 +42,34 @@ class usuariosService {
     }
 
 
-    // //InsertOne
-    // async insertOne(body){
-    //     const client = new MongoClient(uri);
-    //     try{
-    //         await client.connect();
-    //         const users =  await client.db('colch_star').collection('usuarios').insertOne(body);
-    //         return users;
-    //     }catch (e) {
-    //         console.log(e);
-    //     }finally{
-    //         await client.close();
-    //     }
-    // }
-
-
-    //InsertMany
-    async insertMany(body) {
+    //InsertOne
+    async insertOne(body){
         const client = new MongoClient(uri);
-        try {
+        try{
             await client.connect();
-            const users = await client.db('colch_star').collection('usuarios').insertMany(body);
+            const users =  await client.db('colch_star').collection('usuarios').insertOne(body);
             return users;
-        } catch (e) {
+        }catch (e) {
             console.log(e);
-        } finally {
+        }finally{
             await client.close();
         }
     }
+
+
+    // //InsertMany
+    // async insertMany(body) {
+    //     const client = new MongoClient(uri);
+    //     try {
+    //         await client.connect();
+    //         const users = await client.db('colch_star').collection('usuarios').insertMany(body);
+    //         return users;
+    //     } catch (e) {
+    //         console.log(e);
+    //     } finally {
+    //         await client.close();
+    //     }
+    // }
 
 
     // UpdateOne
@@ -95,19 +95,19 @@ class usuariosService {
 
 
 
-    //UpdateMany
-    async updateMany(body) {
-        const client = new MongoClient(uri);
-        try {
-            await client.connect();
-            const users = await client.db('colch_star').collection('usuarios').updateMany({}, { $set: { estado: body } });
-            return users;
-        } catch (e) {
-            console.log(e);
-        } finally {
-            await client.close();
-        }
-    }
+    // //UpdateMany
+    // async updateMany(body) {
+    //     const client = new MongoClient(uri);
+    //     try {
+    //         await client.connect();
+    //         const users = await client.db('colch_star').collection('usuarios').updateMany({}, { $set: { estado: body } });
+    //         return users;
+    //     } catch (e) {
+    //         console.log(e);
+    //     } finally {
+    //         await client.close();
+    //     }
+    // }
 
 
 
@@ -127,19 +127,19 @@ class usuariosService {
 
 
 
-    // DeleteMany
-    async deleteMany(body) {
-        const client = new MongoClient(uri);
-        try {
-            await client.connect();
-            const users = await client.db('colch_star').collection('usuarios').deleteMany(body);
-            return users;
-        } catch (e) {
-            console.log(e);
-        } finally {
-            await client.close();
-        }
-    }
+    // // DeleteMany
+    // async deleteMany(body) {
+    //     const client = new MongoClient(uri);
+    //     try {
+    //         await client.connect();
+    //         const users = await client.db('colch_star').collection('usuarios').deleteMany(body);
+    //         return users;
+    //     } catch (e) {
+    //         console.log(e);
+    //     } finally {
+    //         await client.close();
+    //     }
+    // }
 
 }
 module.exports = usuariosService;
