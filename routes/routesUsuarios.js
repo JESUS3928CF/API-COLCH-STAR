@@ -52,19 +52,19 @@ router.post('/', async(req,res)=>{
 })
 
 
-// // InsertMany
-// router.post('/', async (req, res) => {
-//     const body = req.body;
-//     const users = await service.insertMany(body);
-//     if (users) {
-//         res.status(200).json({
-//             message: 'Se creo el usuario en la base de datos',
-//             users,
-//         });
-//     } else {
-//         res.status(404).send("No se crearon los usuarios en la base de datos");
-//     }
-// })
+// InsertMany
+router.post('/many', async (req, res) => {
+    const body = req.body;
+    const users = await service.insertMany(body);
+    if (users) {
+        res.status(200).json({
+            message: 'Se creo el usuario en la base de datos',
+            users,
+        });
+    } else {
+        res.status(404).send("No se crearon los usuarios en la base de datos");
+    }
+})
 
 
 

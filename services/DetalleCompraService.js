@@ -44,18 +44,18 @@ class DetalleCompraService {
 
     //----------------------InsertOne------------------------------
 
-    // async insertOne(body){
-    //     const client = new MongoClient(uri);
-    //         try {
-    //             await client.connect();
-    //             const resultado =  await client.db('colch_star').collection('DetalleCompra').insertOne(body);
-    //             return resultado;
-    //         } catch (e) {
-    //             console.log(e);
-    //         }finally{
-    //             await client.close();
-    //         }
-    // } 
+    async insertOne(body){
+        const client = new MongoClient(uri);
+            try {
+                await client.connect();
+                const resultado =  await client.db('colch_star').collection('DetalleCompra').insertOne(body);
+                return resultado;
+            } catch (e) {
+                console.log(e);
+            }finally{
+                await client.close();
+            }
+    } 
 
 
     //----------------------InsertMany------------------------------

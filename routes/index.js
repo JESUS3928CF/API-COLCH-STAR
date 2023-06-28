@@ -8,6 +8,9 @@ const routerProveedor = require("./routesProveedor")
 const routerClientes = require("./routesClientes")
 const routerVentas = require("./routesVentas")
 const routerDetalleVenta = require("./routesDetalleVenta")
+const routerPrenda_talla = require("./routesTalla")
+const routerColor = require("./routersColor")
+const routerDiseno = require("./routesDiseno")
 
 
 function routerApi(app) {
@@ -22,6 +25,9 @@ function routerApi(app) {
     router.use("/clientes", routerClientes);
     router.use("/ventas", routerVentas);
     router.use("/detalleVentas", routerDetalleVenta);
+    router.use("/prenda_talla", routerPrenda_talla);
+    router.use("/Color", routerColor);
+    router.use("/Diseno", routerDiseno);
 }
 
 module.exports = routerApi; 

@@ -43,19 +43,19 @@ class rolesService {
     }
   }
 
-  // //InsertOne
-  // async insertOne(body){
-  //     const client = new MongoClient(uri);
-  //     try{
-  //         await client.connect();
-  //         const role =  await client.db('colch_star').collection('roles').insertOne(body);
-  //         return role;
-  //     }catch (e) {
-  //         console.log(e);
-  //     }finally{
-  //         await client.close();
-  //     }
-  // }
+  //InsertOne
+  async insertOne(body){
+      const client = new MongoClient(uri);
+      try{
+          await client.connect();
+          const role =  await client.db('colch_star').collection('roles').insertOne(body);
+          return role;
+      }catch (e) {
+          console.log(e);
+      }finally{
+          await client.close();
+      }
+  }
 
   //InsertMany
   async insertMany(body) {

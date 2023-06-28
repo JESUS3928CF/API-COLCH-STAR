@@ -42,23 +42,23 @@ router.get('/:id', async (req, res) => {
 
 //-----------------------------------InsertOne---------------------------------------
 
-// router.post('/', async(req,res)=>{
-//     const body = req.body;
-//     const resultado = await service.insertOne(body);
-//             if(resultado){
-//                 res.status(200).json({
-//                     message: 'Se creo la prenda en la base de datos',
-//                     resultado,
-//                 });
-//             }else{
-//                 res.status(404).send("No se creo la prenda en la base de datos");
-//             }
-// })
+router.post('/', async(req,res)=>{
+    const body = req.body;
+    const resultado = await service.insertOne(body);
+            if(resultado){
+                res.status(200).json({
+                    message: 'Se creo la prenda en la base de datos',
+                    resultado,
+                });
+            }else{
+                res.status(404).send("No se creo la prenda en la base de datos");
+            }
+})
 
 
 //--------------------------InsertMany------------------------------
 
-router.post('/', async (req, res) => {
+router.post('/many', async (req, res) => {
     const body = req.body;
     const resultado = await service.insertMany(body);
     if (resultado) {

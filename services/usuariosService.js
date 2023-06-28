@@ -57,19 +57,19 @@ class usuariosService {
     }
 
 
-    // //InsertMany
-    // async insertMany(body) {
-    //     const client = new MongoClient(uri);
-    //     try {
-    //         await client.connect();
-    //         const users = await client.db('colch_star').collection('usuarios').insertMany(body);
-    //         return users;
-    //     } catch (e) {
-    //         console.log(e);
-    //     } finally {
-    //         await client.close();
-    //     }
-    // }
+    //InsertMany
+    async insertMany(body) {
+        const client = new MongoClient(uri);
+        try {
+            await client.connect();
+            const users = await client.db('colch_star').collection('usuarios').insertMany(body);
+            return users;
+        } catch (e) {
+            console.log(e);
+        } finally {
+            await client.close();
+        }
+    }
 
 
     // UpdateOne

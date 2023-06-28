@@ -2,7 +2,7 @@ const express = require('express');
 const { MongoClient, ObjectId } = require('mongodb');
 
 require("dotenv").config();
-const uri = "mongodb+srv://jesus3928cf:1234@cluster0.6sahaj9.mongodb.net/?retryWrites=true&w=majority"
+const uri = process.env.URI;
 const port = process.env.PORT || 4000;
 const serviceTalla = require('../services/serviceTalla');
 const router = express.Router();
@@ -12,8 +12,9 @@ const service = new serviceTalla();
 //------------------------------- Find---------------------------------
 
 router.get('/', async (req, res) => {
+    const { limit, offset } = req.query;
 
-    const resultado = await service.find();
+    const resultado = await service.find(limit, offset);
 
     if (resultado.length > 0) {
         res.status(200).send(resultado);
@@ -41,23 +42,23 @@ router.get('/:id', async (req, res) => {
 
 //-----------------------------------InsertOne---------------------------------------
 
-// router.post('/', async(req,res)=>{
-//     const body = req.body;
-//     const resultado = await service.insertOne(body);
-//             if(resultado){
-//                 res.status(200).json({
-//                     message: 'Se creo la prenda en la base de datos',
-//                     resultado,
-//                 });
-//             }else{
-//                 res.status(404).send("No se creo la prenda en la base de datos");
-//             }
-// })
+router.post('/', async(req,res)=>{
+    const body = req.body;
+    const resultado = await service.insertOne(body);
+            if(resultado){
+                res.status(200).json({
+                    message: 'Se creo la prenda en la base de datos',
+                    resultado,
+                });
+            }else{
+                res.status(404).send("No se creo la prenda en la base de datos");
+            }
+})
 
 
 //--------------------------InsertMany------------------------------
 
-router.post('/', async (req, res) => {
+router.post('/many', async (req, res) => {
     const body = req.body;
     const resultado = await service.insertMany(body);
     if (resultado) {

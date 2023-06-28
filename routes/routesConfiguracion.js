@@ -36,23 +36,23 @@ router.get('/:id', async (req, res) => {
 })
 
 
-// // InsertOne
-// router.post('/', async(req,res)=>{
-//     const body = req.body;
-//             const conf =  await service.insertOne(body);
-//             if(conf){
-//                 res.status(200).json({
-//                     message: 'Se creo la configuracion en la base de datos',
-//                     conf,
-//                 });
-//             }else{
-//                 res.status(404).send("No se creo la configuracion en la base de datos");
-//             }
-// })
+// InsertOne
+router.post('/', async(req,res)=>{
+    const body = req.body;
+            const conf =  await service.insertOne(body);
+            if(conf){
+                res.status(200).json({
+                    message: 'Se creo la configuracion en la base de datos',
+                    conf,
+                });
+            }else{
+                res.status(404).send("No se creo la configuracion en la base de datos");
+            }
+})
 
 
 // InsertMany
-router.post('/', async (req, res) => {
+router.post('/many', async (req, res) => {
     const body = req.body;
     const conf = await service.insertMany(body);
     if (conf) {

@@ -36,19 +36,19 @@ class configuracionService {
     }
 
 
-    // //InsertOne
-    // async insertOne(body){
-    //     const client = new MongoClient(uri);
-    //     try{
-    //         await client.connect();
-    //         const conf =  await client.db('colch_star').collection('configuracion').insertOne(body);
-    //         return conf;
-    //     }catch (e) {
-    //         console.log(e);
-    //     }finally{
-    //         await client.close();
-    //     }
-    // }
+    //InsertOne
+    async insertOne(body){
+        const client = new MongoClient(uri);
+        try{
+            await client.connect();
+            const conf =  await client.db('colch_star').collection('configuracion').insertOne(body);
+            return conf;
+        }catch (e) {
+            console.log(e);
+        }finally{
+            await client.close();
+        }
+    }
 
 
     //InsertMany

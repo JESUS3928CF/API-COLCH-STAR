@@ -37,23 +37,23 @@ router.get('/:id', async (req, res) => {
 
 
 // // InsertOne
-// router.post('/', async(req,res)=>{
-//     const body = req.body;
-//             const role =  await service.insertOne(body);
-//             if(role){
-//                 res.status(200).json({
-//                     message: 'Se creo el rol en la base de datos',
-//                     role,
-//                 });
-//             }else{
-//                 res.status(404).send("No se creo el rol en la base de datos");
-//             }
-// })
+router.post('/', async(req,res)=>{
+    const body = req.body;
+            const role =  await service.insertOne(body);
+            if(role){
+                res.status(200).json({
+                    message: 'Se creo el rol en la base de datos',
+                    role,
+                });
+            }else{
+                res.status(404).send("No se creo el rol en la base de datos");
+            }
+})
 
 
 
 // InsertMany
-router.post('/', async (req, res) => {
+router.post('/many', async (req, res) => {
     const body = req.body;
     const role = await service.insertMany(body);
     if (role) {
@@ -71,8 +71,8 @@ router.post('/', async (req, res) => {
 router.patch('/:id', async (req, res) => {
     const id = req.params.id;
     const id_rol = req.body.id_rol;
-    const rol_nombre = req.body.rol;
-    const role = await service.updateOne(id, id_rol, rol_nombre);
+    const rol = req.body.rol;
+    const role = await service.updateOne(id, id_rol, rol);
     if (role) {
         res.status(200).json({
             message: 'Se actualizo el rol en la base de datos',
